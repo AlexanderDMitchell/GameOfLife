@@ -1,0 +1,17 @@
+.navbar {
+  width: 100vw;
+  max-width: 100vw;
+  height: 50px;
+  padding: 8px 12px;
+  margin: 0;
+  background-color: #78a01c;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar_link {
+  text-decoration: none;
+  color: inherit;
+}
