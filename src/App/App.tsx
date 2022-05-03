@@ -7,19 +7,6 @@ import { Navbar } from './components/Navbar/Navbar'
 import { CellCoordinates, GridData } from './types'
 import { cloneGrid, createGrid } from './utils'
 
-const initialGrid: GridData = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-]
-
 type State = {
   isPlaying: boolean
   grid: GridData
@@ -34,7 +21,8 @@ type Action =
       coordinates: CellCoordinates
     }
   | {
-      type: 'clear-grid'
+      type: 'set-grid'
+      grid: GridData
     }
 
 function reducer(state: State, action: Action): State {
@@ -56,18 +44,18 @@ function reducer(state: State, action: Action): State {
       }
     }
 
-    case 'clear-grid':
+    case 'set-grid':
       return {
         ...state,
         isPlaying: false,
-        grid: createGrid(10, 10)
+        grid: action.grid
       }
   }
 }
 
 const initialState: State = {
   isPlaying: false,
-  grid: initialGrid
+  grid: []
 }
 
 const useGameOfLife = () => {
@@ -87,14 +75,34 @@ export function App() {
     dispatch({ type: 'toggle-cell', coordinates })
   }
 
-  const clearGrid = () => dispatch({ type: 'clear-grid' })
+  const createFullScreenGrid = () => {
+    const navbarHeight = 50
+    const cellSize = 20
+
+    const height = window.innerHeight - navbarHeight
+    const width = window.innerWidth
+
+    const maxNumberOfRows = Math.floor(height / cellSize)
+    const maxNumberOfColumns = Math.floor(width / cellSize)
+
+    const grid = createGrid(maxNumberOfRows, maxNumberOfColumns)
+
+    dispatch({ type: 'set-grid', grid })
+  }
+
+  React.useEffect(() => {
+    if (state.grid.length) {
+      return
+    }
+    createFullScreenGrid()
+  })
 
   return (
     <div className={'App'}>
       <Navbar
         isPlaying={state.isPlaying}
         toggleIsPlaying={toggleIsPlaying}
-        clearGrid={clearGrid}
+        clearGrid={createFullScreenGrid}
       />
       <Grid grid={state.grid} toggleCellFill={toggleCellFill} />
     </div>
