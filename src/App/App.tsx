@@ -5,6 +5,7 @@ import React, { useReducer } from 'react'
 import { Grid } from './components/Grid/Grid'
 import { Navbar } from './components/Navbar/Navbar'
 import { CellCoordinates, GridData } from './types'
+import { cloneGrid, createGrid } from './utils'
 
 const initialGrid: GridData = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -32,6 +33,9 @@ type Action =
       type: 'toggle-cell'
       coordinates: CellCoordinates
     }
+  | {
+      type: 'clear-grid'
+    }
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -51,13 +55,14 @@ function reducer(state: State, action: Action): State {
         grid: updatedGrid
       }
     }
-  }
-}
 
-const cloneGrid = (grid: GridData) => {
-  return grid.map((row) => {
-    return row.slice()
-  })
+    case 'clear-grid':
+      return {
+        ...state,
+        isPlaying: false,
+        grid: createGrid(10, 10)
+      }
+  }
 }
 
 const initialState: State = {
@@ -72,6 +77,7 @@ const useGameOfLife = () => {
 
 export function App() {
   const { state, dispatch } = useGameOfLife()
+
   const toggleIsPlaying = () => dispatch({ type: 'toggle-is-playing' })
 
   const toggleCellFill = (coordinates: CellCoordinates) => {
@@ -81,9 +87,15 @@ export function App() {
     dispatch({ type: 'toggle-cell', coordinates })
   }
 
+  const clearGrid = () => dispatch({ type: 'clear-grid' })
+
   return (
     <div className={'App'}>
-      <Navbar isPlaying={state.isPlaying} toggleIsPlaying={toggleIsPlaying} />
+      <Navbar
+        isPlaying={state.isPlaying}
+        toggleIsPlaying={toggleIsPlaying}
+        clearGrid={clearGrid}
+      />
       <Grid grid={state.grid} toggleCellFill={toggleCellFill} />
     </div>
   )

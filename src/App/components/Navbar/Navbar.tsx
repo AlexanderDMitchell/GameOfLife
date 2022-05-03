@@ -3,9 +3,10 @@ import './Navbar.css'
 interface Props {
   isPlaying: boolean
   toggleIsPlaying: () => void
+  clearGrid: () => void
 }
 
-export const Navbar = ({ isPlaying, toggleIsPlaying }: Props) => (
+export const Navbar = ({ isPlaying, toggleIsPlaying, clearGrid }: Props) => (
   <div className={'navbar'}>
     <h1>Game of Life</h1>
     <div className={'navbar_actions'}>
@@ -18,6 +19,9 @@ export const Navbar = ({ isPlaying, toggleIsPlaying }: Props) => (
       </a>
       <button className={'navbar_button'} onClick={toggleIsPlaying}>
         {isPlaying ? 'Stop' : 'Start'}
+      </button>
+      <button className={'navbar_button'} onClick={clearGrid}>
+        Clear
       </button>
     </div>
   </div>
