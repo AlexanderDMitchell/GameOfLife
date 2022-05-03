@@ -1,28 +1,25 @@
 import './Grid.css'
 
+import { CellCoordinates, GridData } from '../../types'
 import { Cell } from '../Cell/Cell'
 
-const grid = [
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-]
+interface Props {
+  grid: GridData
+  toggleCellFill: (coordinate: CellCoordinates) => void
+}
 
-export const Grid = () => {
+export const Grid = ({ grid, toggleCellFill }: Props) => {
   return (
     <div className={'grid_container'}>
       <div className={'grid'}>
-        {grid.map((row, index) => (
-          <div key={`row-${index}`} className={'grid_row'}>
-            {row.map((cell, cellIndex) => (
-              <Cell key={`cell-${cellIndex}`} />
+        {grid.map((row, rowIndex) => (
+          <div key={`row-${rowIndex}`} className={'grid_row'}>
+            {row.map((cell, columnIndex) => (
+              <Cell
+                key={`cell-${columnIndex}`}
+                isFilled={!!cell}
+                toggleFill={() => toggleCellFill([rowIndex, columnIndex])}
+              />
             ))}
           </div>
         ))}

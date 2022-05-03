@@ -1,5 +1,12 @@
 import './Cell.css'
 
-export const Cell = () => {
-  return <div className={'cell'} />
+interface Props {
+  isFilled: boolean
+  toggleFill: () => void
+}
+
+export const Cell = ({ isFilled, toggleFill }: Props) => {
+  const className = `cell ${isFilled ? 'cell_filled' : ''}`
+
+  return <div className={className} onClick={toggleFill} />
 }
