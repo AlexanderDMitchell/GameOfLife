@@ -74,8 +74,12 @@ export function App() {
   const { state, dispatch } = useGameOfLife()
   const toggleIsPlaying = () => dispatch({ type: 'toggle-is-playing' })
 
-  const toggleCellFill = (coordinates: CellCoordinates) =>
+  const toggleCellFill = (coordinates: CellCoordinates) => {
+    if (state.isPlaying) {
+      return
+    }
     dispatch({ type: 'toggle-cell', coordinates })
+  }
 
   return (
     <div className={'App'}>
