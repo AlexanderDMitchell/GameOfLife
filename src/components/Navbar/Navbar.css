@@ -11,7 +11,22 @@
   align-items: center;
 }
 
+.navbar_actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .navbar_link {
   text-decoration: none;
   color: inherit;
+  margin-right: 8px;
+}
+
+.navbar_button {
+  margin-right: 8px;
+  padding: 8px 12px;
+  width: 60px;
+  border: none;
+  background-color: #d4d380;
 }
