@@ -152,6 +152,7 @@ const getCellValue = (grid: GridData, coordinates: CellCoordinates) => {
 
 const play = (gridData: GridData): GridData => {
   const grid = cloneGrid(gridData)
+  const updatedGrid = cloneGrid(gridData)
   if (!grid || !grid[0]) {
     return gridData
   }
@@ -175,22 +176,22 @@ const play = (gridData: GridData): GridData => {
 
       // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
       if (isLive && numberOfNeighbours < 2) {
-        grid[row][col] = 0
+        updatedGrid[row][col] = 0
       }
 
       // Any live cell with two or three live neighbours lives on to the next generation.
 
       // Any live cell with more than three live neighbours dies, as if by overpopulation.
       if (isLive && numberOfNeighbours > 3) {
-        grid[row][col] = 0
+        updatedGrid[row][col] = 0
       }
 
       // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
       if (!isLive && numberOfNeighbours === 3) {
-        grid[row][col] = 1
+        updatedGrid[row][col] = 1
       }
     }
   }
 
-  return grid
+  return updatedGrid
 }
