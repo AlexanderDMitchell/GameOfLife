@@ -8,8 +8,9 @@ import { CellCoordinates, GridData } from './types'
 import { cloneGrid, createGrid } from './utils'
 
 type State = {
-  isPlaying: boolean
   grid: GridData
+  isPlaying: boolean
+  generationHasPassed: boolean
 }
 
 type Action =
@@ -23,6 +24,9 @@ type Action =
   | {
       type: 'set-grid'
       grid: GridData
+    }
+  | {
+      type: 'generation-has-passed'
     }
 
 function reducer(state: State, action: Action): State {
@@ -47,15 +51,22 @@ function reducer(state: State, action: Action): State {
     case 'set-grid':
       return {
         ...state,
-        isPlaying: false,
-        grid: action.grid
+        grid: action.grid,
+        generationHasPassed: false
+      }
+
+    case 'generation-has-passed':
+      return {
+        ...state,
+        generationHasPassed: true
       }
   }
 }
 
 const initialState: State = {
+  grid: [],
   isPlaying: false,
-  grid: []
+  generationHasPassed: false
 }
 
 const useGameOfLife = () => {
@@ -97,19 +108,25 @@ export function App() {
     createFullScreenGrid()
   })
 
-  const play = (grid: GridData) => {
-    // console.log('*** play', grid)
-  }
+  React.useEffect(() => {
+    if (!state.isPlaying || !state.generationHasPassed) {
+      return
+    }
+    const grid = play(state.grid)
+    dispatch({ type: 'set-grid', grid })
+  }, [dispatch, state.isPlaying, state.grid, state.generationHasPassed])
 
   React.useEffect(() => {
     if (!state.isPlaying) {
       return
     }
 
-    const interval = setInterval(() => play(cloneGrid(state.grid)), 1000)
+    const interval = setInterval(() => {
+      dispatch({ type: 'generation-has-passed' })
+    }, 1000)
 
     return () => clearInterval(interval)
-  }, [state.isPlaying, state.grid])
+  }, [state.isPlaying, dispatch])
 
   return (
     <div className={'App'}>
@@ -121,4 +138,59 @@ export function App() {
       <Grid grid={state.grid} toggleCellFill={toggleCellFill} />
     </div>
   )
+}
+
+const getCellValue = (grid: GridData, coordinates: CellCoordinates) => {
+  const [row, col] = coordinates
+
+  return grid[row] !== undefined
+    ? grid[row][col] !== undefined
+      ? grid[row][col]
+      : 0
+    : 0
+}
+
+const play = (gridData: GridData): GridData => {
+  const grid = cloneGrid(gridData)
+  if (!grid || !grid[0]) {
+    return gridData
+  }
+
+  const rows = grid.length
+  const columns = grid[0].length
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < columns; col++) {
+      const isLive = getCellValue(grid, [row, col])
+
+      const numberOfNeighbours =
+        getCellValue(grid, [row - 1, col - 1]) +
+        getCellValue(grid, [row - 1, col]) +
+        getCellValue(grid, [row - 1, col + 1]) +
+        getCellValue(grid, [row, col - 1]) +
+        getCellValue(grid, [row, col + 1]) +
+        getCellValue(grid, [row + 1, col - 1]) +
+        getCellValue(grid, [row + 1, col]) +
+        getCellValue(grid, [row + 1, col + 1])
+
+      // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+      if (isLive && numberOfNeighbours < 2) {
+        grid[row][col] = 0
+      }
+
+      // Any live cell with two or three live neighbours lives on to the next generation.
+
+      // Any live cell with more than three live neighbours dies, as if by overpopulation.
+      if (isLive && numberOfNeighbours > 3) {
+        grid[row][col] = 0
+      }
+
+      // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+      if (!isLive && numberOfNeighbours === 3) {
+        grid[row][col] = 1
+      }
+    }
+  }
+
+  return grid
 }
