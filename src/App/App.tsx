@@ -97,6 +97,20 @@ export function App() {
     createFullScreenGrid()
   })
 
+  const play = (grid: GridData) => {
+    // console.log('*** play', grid)
+  }
+
+  React.useEffect(() => {
+    if (!state.isPlaying) {
+      return
+    }
+
+    const interval = setInterval(() => play(cloneGrid(state.grid)), 1000)
+
+    return () => clearInterval(interval)
+  }, [state.isPlaying, state.grid])
+
   return (
     <div className={'App'}>
       <Navbar
