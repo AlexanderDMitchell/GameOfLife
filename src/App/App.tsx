@@ -124,7 +124,7 @@ export function App() {
 
     const interval = setInterval(() => {
       dispatch({ type: 'generation-has-passed' })
-    }, 1000)
+    }, 500)
 
     return () => clearInterval(interval)
   }, [state.isPlaying, dispatch])
