@@ -90,8 +90,9 @@ export function App() {
     const navbarHeight = 50
     const cellSize = 20
 
-    const height = window.innerHeight - navbarHeight
-    const width = window.innerWidth
+    const padding = 20
+    const height = window.innerHeight - navbarHeight - padding
+    const width = window.innerWidth - padding
 
     const maxNumberOfRows = Math.floor(height / cellSize)
     const maxNumberOfColumns = Math.floor(width / cellSize)
