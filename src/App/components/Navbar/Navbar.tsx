@@ -17,7 +17,9 @@ export const Navbar = ({ isPlaying, toggleIsPlaying, clearGrid }: Props) => (
         rel={'noreferrer'}>
         Info
       </a>
-      <button className={'navbar_button'} onClick={toggleIsPlaying}>
+      <button
+        className={`navbar_button ${isPlaying ? 'navbar_button_outline' : ''}`}
+        onClick={toggleIsPlaying}>
         {isPlaying ? 'Stop' : 'Start'}
       </button>
       <button className={'navbar_button'} onClick={clearGrid}>

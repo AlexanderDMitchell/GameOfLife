@@ -28,5 +28,20 @@
   width: 60px;
   border: none;
   background-color: #6b7502;
+  border: 1px solid #6b7502;
   font-weight: bold;
+}
+
+.navbar_button:hover {
+  background-color: #6b7502cc;
+  border-color: #6b7502cc;
+}
+
+.navbar_button_outline {
+  background-color: transparent;
+  color: #6b7502;
+}
+
+.navbar_button_outline:hover {
+  background-color: #6b750233;
 }
