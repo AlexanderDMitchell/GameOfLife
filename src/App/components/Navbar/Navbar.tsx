@@ -22,7 +22,7 @@ export const Navbar = ({ isPlaying, toggleIsPlaying, clearGrid }: Props) => (
         onClick={toggleIsPlaying}>
         {isPlaying ? 'Stop' : 'Start'}
       </button>
-      <button className={'navbar_button'} onClick={clearGrid}>
+      <button className={'navbar_button'} onClick={() => clearGrid()}>
         Clear
       </button>
     </div>

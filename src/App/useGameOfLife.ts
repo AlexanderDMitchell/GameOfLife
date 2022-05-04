@@ -78,7 +78,7 @@ export const useGameOfLife = () => {
     dispatch({ type: 'toggle-cell', coordinates })
   }
 
-  const createFullScreenGrid = () => {
+  const createFullScreenGrid = (addGlider = false) => {
     const navbarHeight = 50
     const cellSize = 20
 
@@ -91,6 +91,10 @@ export const useGameOfLife = () => {
 
     const grid = createGrid(maxNumberOfRows, maxNumberOfColumns)
 
+    if (addGlider && grid.length >= 3 && grid[0].length >= 3) {
+      addGliderToGrid(grid)
+    }
+
     dispatch({ type: 'set-grid', grid })
   }
 
@@ -98,7 +102,7 @@ export const useGameOfLife = () => {
     if (state.grid.length) {
       return
     }
-    createFullScreenGrid()
+    createFullScreenGrid(true)
   })
 
   React.useEffect(() => {
@@ -204,4 +208,28 @@ const cloneGrid = (grid: GridData) => {
   return grid.map((row) => {
     return row.slice()
   })
+}
+
+const addGliderToGrid = (grid: GridData) => {
+  const glider: GridData = [
+    [0, 1, 0],
+    [0, 0, 1],
+    [1, 1, 1]
+  ]
+
+  const rows = glider.length
+  const columns = glider[0].length
+
+  const startingCoords = [
+    Math.floor(grid.length / 2) - 1,
+    Math.floor(grid[0].length / 2) - 1
+  ]
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < columns; col++) {
+      grid[startingCoords[0] + row][startingCoords[1] + col] = glider[row][col]
+    }
+  }
+
+  return grid
 }
