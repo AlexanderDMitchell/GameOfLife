@@ -1,12 +1,11 @@
 .cell {
   width: 20px;
   height: 20px;
-  /* background-color: white; */
-  border: 1px solid #78a01c1a;
+  border: 1px solid #6b75021a;
   border-bottom: 0;
   border-right: 0;
 }
 
 .cell_filled {
-  background-color: #78a01c;
+  background-color: #6b7502;
 }

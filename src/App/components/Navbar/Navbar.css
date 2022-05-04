@@ -8,7 +8,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #78a01c1a;
+  border-bottom: 1px solid #6b75021a;
 }
 
 .navbar_actions {
@@ -28,6 +28,6 @@
   padding: 8px 12px;
   width: 60px;
   border: none;
-  background-color: #78a01c;
+  background-color: #6b7502;
   font-weight: bold;
 }
