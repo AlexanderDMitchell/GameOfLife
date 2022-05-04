@@ -71,11 +71,6 @@ const initialState: State = {
 
 const useGameOfLife = () => {
   const [state, dispatch] = React.useReducer(reducer, initialState)
-  return { state, dispatch }
-}
-
-export function App() {
-  const { state, dispatch } = useGameOfLife()
 
   const toggleIsPlaying = () => dispatch({ type: 'toggle-is-playing' })
 
@@ -128,6 +123,19 @@ export function App() {
 
     return () => clearInterval(interval)
   }, [state.isPlaying, dispatch])
+
+  return {
+    state,
+    dispatch,
+    toggleIsPlaying,
+    createFullScreenGrid,
+    toggleCellFill
+  }
+}
+
+export function App() {
+  const { state, toggleIsPlaying, createFullScreenGrid, toggleCellFill } =
+    useGameOfLife()
 
   return (
     <div className={'App'}>
