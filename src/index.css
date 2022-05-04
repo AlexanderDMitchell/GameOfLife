@@ -1,3 +1,13 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+}
+
 * {
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
