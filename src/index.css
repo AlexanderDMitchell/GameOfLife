@@ -2,10 +2,12 @@ html,
 body,
 #root {
   height: 100%;
+  color: #78a01c;
 }
 
 #root {
   display: flex;
+  background-color: #11170d;
 }
 
 * {
