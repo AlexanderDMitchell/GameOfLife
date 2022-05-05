@@ -21,6 +21,7 @@ type Action =
   | {
       type: 'set-grid'
       grid: GridData
+      keepPlaying: boolean
     }
   | {
       type: 'generation-has-passed'
@@ -49,7 +50,8 @@ function reducer(state: State, action: Action): State {
       return {
         ...state,
         grid: action.grid,
-        generationHasPassed: false
+        generationHasPassed: false,
+        isPlaying: action.keepPlaying
       }
 
     case 'generation-has-passed':
@@ -101,7 +103,7 @@ export const useGameOfLife = () => {
       addGliderToGrid(grid)
     }
 
-    dispatch({ type: 'set-grid', grid })
+    dispatch({ type: 'set-grid', grid, keepPlaying: false })
   }
 
   React.useEffect(() => {
@@ -116,7 +118,7 @@ export const useGameOfLife = () => {
       return
     }
     const grid = play(state.grid)
-    dispatch({ type: 'set-grid', grid })
+    dispatch({ type: 'set-grid', grid, keepPlaying: true })
   }, [dispatch, state.isPlaying, state.grid, state.generationHasPassed])
 
   React.useEffect(() => {
