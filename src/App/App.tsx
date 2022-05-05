@@ -13,7 +13,8 @@ export function App() {
       <Navbar
         isPlaying={state.isPlaying}
         toggleIsPlaying={toggleIsPlaying}
-        clearGrid={createFullScreenGrid}
+        clearGrid={() => createFullScreenGrid({})}
+        randomiseGrid={() => createFullScreenGrid({ randomise: true })}
       />
       <Grid grid={state.grid} toggleCellFill={toggleCellFill} />
     </div>

@@ -78,7 +78,13 @@ export const useGameOfLife = () => {
     dispatch({ type: 'toggle-cell', coordinates })
   }
 
-  const createFullScreenGrid = (addGlider = false) => {
+  const createFullScreenGrid = ({
+    addGlider = false,
+    randomise = false
+  }: {
+    addGlider?: boolean
+    randomise?: boolean
+  }) => {
     const navbarHeight = 50
     const cellSize = 20
 
@@ -89,7 +95,7 @@ export const useGameOfLife = () => {
     const maxNumberOfRows = Math.floor(height / cellSize)
     const maxNumberOfColumns = Math.floor(width / cellSize)
 
-    const grid = createGrid(maxNumberOfRows, maxNumberOfColumns)
+    const grid = createGrid(maxNumberOfRows, maxNumberOfColumns, randomise)
 
     if (addGlider && grid.length >= 3 && grid[0].length >= 3) {
       addGliderToGrid(grid)
@@ -102,7 +108,7 @@ export const useGameOfLife = () => {
     if (state.grid.length) {
       return
     }
-    createFullScreenGrid(true)
+    createFullScreenGrid({ addGlider: true })
   })
 
   React.useEffect(() => {
@@ -190,14 +196,15 @@ const play = (gridData: GridData): GridData => {
   return updatedGrid
 }
 
-const createGrid = (rows: number, columns: number) => {
+const createGrid = (rows: number, columns: number, randomise = false) => {
   const grid: GridData = []
 
   for (let row = 0; row < rows; row++) {
     grid.push([])
 
     for (let col = 0; col < columns; col++) {
-      grid[row].push(0)
+      const value = randomise ? (Math.round(Math.random()) as 0 | 1) : 0
+      grid[row].push(value)
     }
   }
 

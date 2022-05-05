@@ -3,10 +3,16 @@ import './Navbar.css'
 interface Props {
   isPlaying: boolean
   toggleIsPlaying: () => void
+  randomiseGrid: () => void
   clearGrid: () => void
 }
 
-export const Navbar = ({ isPlaying, toggleIsPlaying, clearGrid }: Props) => (
+export const Navbar = ({
+  isPlaying,
+  toggleIsPlaying,
+  randomiseGrid,
+  clearGrid
+}: Props) => (
   <div className={'navbar'}>
     <h1>Game of Life</h1>
     <div className={'navbar_actions'}>
@@ -22,7 +28,10 @@ export const Navbar = ({ isPlaying, toggleIsPlaying, clearGrid }: Props) => (
         onClick={toggleIsPlaying}>
         {isPlaying ? 'Stop' : 'Start'}
       </button>
-      <button className={'navbar_button'} onClick={() => clearGrid()}>
+      <button className={'navbar_button'} onClick={randomiseGrid}>
+        Randomise
+      </button>
+      <button className={'navbar_button'} onClick={clearGrid}>
         Clear
       </button>
     </div>
