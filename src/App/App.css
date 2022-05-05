@@ -4,3 +4,39 @@
   display: flex;
   flex-direction: column;
 }
+
+.button {
+  margin-right: 12px;
+  padding: 8px 12px;
+  width: 100px;
+  height: 40px;
+  border: none;
+  background-color: #6b7502;
+  border: 1px solid #6b7502;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: #6b7502cc;
+  border-color: #6b7502cc;
+}
+
+.button_outline {
+  background-color: transparent;
+  color: #6b7502;
+}
+
+.button_outline:hover {
+  background-color: #6b750233;
+}
+
+.navbar_link {
+  text-decoration: none;
+  color: inherit;
+  margin-right: 12px;
+}
+
+.settings_button {
+  width: 50px;
+  font-weight: 900;
+}

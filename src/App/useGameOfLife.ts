@@ -4,10 +4,13 @@ import React, { useReducer } from 'react'
 
 import { CellCoordinates, GridData } from './types'
 
+type Screen = 'game' | 'settings'
+
 type State = {
   grid: GridData
   isPlaying: boolean
   generationHasPassed: boolean
+  screen: Screen
 }
 
 type Action =
@@ -25,6 +28,10 @@ type Action =
     }
   | {
       type: 'generation-has-passed'
+    }
+  | {
+      type: 'navigate'
+      screen: Screen
     }
 
 function reducer(state: State, action: Action): State {
@@ -59,13 +66,21 @@ function reducer(state: State, action: Action): State {
         ...state,
         generationHasPassed: true
       }
+
+    case 'navigate':
+      return {
+        ...state,
+        screen: action.screen,
+        isPlaying: false
+      }
   }
 }
 
 const initialState: State = {
   grid: [],
   isPlaying: false,
-  generationHasPassed: false
+  generationHasPassed: false,
+  screen: 'game'
 }
 
 export const useGameOfLife = () => {

@@ -15,33 +15,3 @@
   flex-direction: row;
   align-items: center;
 }
-
-.navbar_link {
-  text-decoration: none;
-  color: inherit;
-  margin-right: 12px;
-}
-
-.navbar_button {
-  margin-right: 12px;
-  padding: 8px 12px;
-  width: 100px;
-  border: none;
-  background-color: #6b7502;
-  border: 1px solid #6b7502;
-  font-weight: bold;
-}
-
-.navbar_button:hover {
-  background-color: #6b7502cc;
-  border-color: #6b7502cc;
-}
-
-.navbar_button_outline {
-  background-color: transparent;
-  color: #6b7502;
-}
-
-.navbar_button_outline:hover {
-  background-color: #6b750233;
-}
