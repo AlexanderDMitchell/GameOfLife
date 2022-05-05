@@ -2,6 +2,7 @@ import './App.css'
 
 import { Grid } from './components/Grid/Grid'
 import { Navbar } from './components/Navbar/Navbar'
+import { Slider } from './components/Slider/Slider'
 import { useGameOfLife } from './useGameOfLife'
 
 export function App() {
@@ -23,6 +24,17 @@ export function App() {
             Back
           </button>
         </Navbar>
+        <div className={'settings'}>
+          <Slider
+            label={'Speed'}
+            value={-state.generationDuration}
+            onChange={(value) => {
+              dispatch({ type: 'update-generation-duration', value: -value })
+            }}
+            min={-3200}
+            max={-32}
+          />
+        </div>
       </div>
     )
   }

@@ -11,6 +11,7 @@ type State = {
   isPlaying: boolean
   generationHasPassed: boolean
   screen: Screen
+  generationDuration: number
 }
 
 type Action =
@@ -32,6 +33,10 @@ type Action =
   | {
       type: 'navigate'
       screen: Screen
+    }
+  | {
+      type: 'update-generation-duration'
+      value: number
     }
 
 function reducer(state: State, action: Action): State {
@@ -73,6 +78,12 @@ function reducer(state: State, action: Action): State {
         screen: action.screen,
         isPlaying: false
       }
+
+    case 'update-generation-duration':
+      return {
+        ...state,
+        generationDuration: action.value
+      }
   }
 }
 
@@ -80,7 +91,8 @@ const initialState: State = {
   grid: [],
   isPlaying: false,
   generationHasPassed: false,
-  screen: 'game'
+  screen: 'game',
+  generationDuration: 500
 }
 
 export const useGameOfLife = () => {
@@ -143,10 +155,10 @@ export const useGameOfLife = () => {
 
     const interval = setInterval(() => {
       dispatch({ type: 'generation-has-passed' })
-    }, 500)
+    }, state.generationDuration)
 
     return () => clearInterval(interval)
-  }, [state.isPlaying, dispatch])
+  }, [state.isPlaying, dispatch, state.generationDuration])
 
   return {
     state,
