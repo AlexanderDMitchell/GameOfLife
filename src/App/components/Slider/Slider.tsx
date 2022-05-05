@@ -26,7 +26,7 @@ export const Slider = ({
 
   return (
     <div className={'slider_container'}>
-      <p>{label}</p>
+      <p className={'slider_label'}>{label}</p>
       <input
         className={'slider'}
         type={'range'}

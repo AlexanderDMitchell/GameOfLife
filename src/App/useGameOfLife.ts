@@ -12,6 +12,7 @@ type State = {
   generationHasPassed: boolean
   screen: Screen
   generationDuration: number
+  cellSize: number
 }
 
 type Action =
@@ -36,6 +37,10 @@ type Action =
     }
   | {
       type: 'update-generation-duration'
+      value: number
+    }
+  | {
+      type: 'update-cell-size'
       value: number
     }
 
@@ -84,6 +89,13 @@ function reducer(state: State, action: Action): State {
         ...state,
         generationDuration: action.value
       }
+
+    case 'update-cell-size':
+      return {
+        ...state,
+        grid: createFullScreenGrid({ cellSize: action.value, addGlider: true }),
+        cellSize: action.value
+      }
   }
 }
 
@@ -92,7 +104,8 @@ const initialState: State = {
   isPlaying: false,
   generationHasPassed: false,
   screen: 'game',
-  generationDuration: 500
+  generationDuration: 500,
+  cellSize: 20
 }
 
 export const useGameOfLife = () => {
@@ -107,37 +120,15 @@ export const useGameOfLife = () => {
     dispatch({ type: 'toggle-cell', coordinates })
   }
 
-  const createFullScreenGrid = ({
-    addGlider = false,
-    randomise = false
-  }: {
-    addGlider?: boolean
-    randomise?: boolean
-  }) => {
-    const navbarHeight = 50
-    const cellSize = 20
-
-    const padding = 20
-    const height = window.innerHeight - navbarHeight - padding
-    const width = window.innerWidth - padding
-
-    const maxNumberOfRows = Math.floor(height / cellSize)
-    const maxNumberOfColumns = Math.floor(width / cellSize)
-
-    const grid = createGrid(maxNumberOfRows, maxNumberOfColumns, randomise)
-
-    if (addGlider && grid.length >= 3 && grid[0].length >= 3) {
-      addGliderToGrid(grid)
-    }
-
-    dispatch({ type: 'set-grid', grid, keepPlaying: false })
-  }
-
   React.useEffect(() => {
     if (state.grid.length) {
       return
     }
-    createFullScreenGrid({ addGlider: true })
+    const grid = createFullScreenGrid({
+      cellSize: state.cellSize,
+      addGlider: true
+    })
+    dispatch({ type: 'set-grid', grid, keepPlaying: false })
   })
 
   React.useEffect(() => {
@@ -235,6 +226,33 @@ const createGrid = (rows: number, columns: number, randomise = false) => {
       const value = randomise ? (Math.round(Math.random()) as 0 | 1) : 0
       grid[row].push(value)
     }
+  }
+
+  return grid
+}
+
+const createFullScreenGrid = ({
+  cellSize,
+  addGlider = false,
+  randomise = false
+}: {
+  cellSize: number
+  addGlider?: boolean
+  randomise?: boolean
+}) => {
+  const navbarHeight = 50
+
+  const padding = 20
+  const height = window.innerHeight - navbarHeight - padding
+  const width = window.innerWidth - padding
+
+  const maxNumberOfRows = Math.floor(height / cellSize)
+  const maxNumberOfColumns = Math.floor(width / cellSize)
+
+  const grid = createGrid(maxNumberOfRows, maxNumberOfColumns, randomise)
+
+  if (addGlider && grid.length >= 3 && grid[0].length >= 3) {
+    addGliderToGrid(grid)
   }
 
   return grid

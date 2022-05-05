@@ -32,3 +32,8 @@
   background: #6b7502;
   cursor: pointer;
 }
+
+.slider_label {
+  margin: 0;
+  margin-bottom: 4px;
+}

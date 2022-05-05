@@ -6,9 +6,10 @@ import { Cell } from '../Cell/Cell'
 interface Props {
   grid: GridData
   toggleCellFill: (coordinate: CellCoordinates) => void
+  cellSize: number
 }
 
-export const Grid = ({ grid, toggleCellFill }: Props) => {
+export const Grid = ({ grid, toggleCellFill, cellSize }: Props) => {
   return (
     <div className={'grid_container'}>
       <div className={'grid'}>
@@ -18,6 +19,7 @@ export const Grid = ({ grid, toggleCellFill }: Props) => {
               <Cell
                 key={`cell-${columnIndex}`}
                 isFilled={!!cell}
+                size={cellSize}
                 toggleFill={() => toggleCellFill([rowIndex, columnIndex])}
               />
             ))}

@@ -25,15 +25,29 @@ export function App() {
           </button>
         </Navbar>
         <div className={'settings'}>
-          <Slider
-            label={'Speed'}
-            value={-state.generationDuration}
-            onChange={(value) => {
-              dispatch({ type: 'update-generation-duration', value: -value })
-            }}
-            min={-3200}
-            max={-32}
-          />
+          <div className={'settings_item'}>
+            <Slider
+              label={'Speed'}
+              value={-state.generationDuration}
+              onChange={(value) => {
+                dispatch({ type: 'update-generation-duration', value: -value })
+              }}
+              min={-3200}
+              max={-32}
+            />
+          </div>
+
+          <div className={'settings_item'}>
+            <Slider
+              label={'Cell size'}
+              value={state.cellSize}
+              onChange={(value) => {
+                dispatch({ type: 'update-cell-size', value })
+              }}
+              min={5}
+              max={50}
+            />
+          </div>
         </div>
       </div>
     )
@@ -58,11 +72,22 @@ export function App() {
 
         <button
           className={'button'}
-          onClick={() => createFullScreenGrid({ randomise: true })}>
+          onClick={() => {
+            const grid = createFullScreenGrid({
+              cellSize: state.cellSize,
+              randomise: true
+            })
+            dispatch({ type: 'set-grid', grid, keepPlaying: false })
+          }}>
           Randomise
         </button>
 
-        <button className={'button'} onClick={() => createFullScreenGrid({})}>
+        <button
+          className={'button'}
+          onClick={() => {
+            const grid = createFullScreenGrid({ cellSize: state.cellSize })
+            dispatch({ type: 'set-grid', grid, keepPlaying: false })
+          }}>
           Clear
         </button>
 
@@ -73,7 +98,11 @@ export function App() {
         </button>
       </Navbar>
 
-      <Grid grid={state.grid} toggleCellFill={toggleCellFill} />
+      <Grid
+        grid={state.grid}
+        toggleCellFill={toggleCellFill}
+        cellSize={state.cellSize}
+      />
     </div>
   )
 }
