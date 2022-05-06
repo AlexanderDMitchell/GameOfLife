@@ -48,6 +48,16 @@ export function App() {
               max={50}
             />
           </div>
+
+          <div className={'settings_item'}>
+            <button
+              className={'button button_large'}
+              onClick={() => {
+                dispatch({ type: 'restore-default-settings' })
+              }}>
+              Restore defaults
+            </button>
+          </div>
         </div>
       </div>
     )

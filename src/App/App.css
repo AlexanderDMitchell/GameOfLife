@@ -25,6 +25,10 @@
   font-weight: bold;
 }
 
+.button_large {
+  width: auto;
+}
+
 .button:hover {
   background-color: #6b7502cc;
   border-color: #6b7502cc;

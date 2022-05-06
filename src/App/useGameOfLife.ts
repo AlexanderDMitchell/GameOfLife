@@ -43,6 +43,9 @@ type Action =
       type: 'update-cell-size'
       value: number
     }
+  | {
+      type: 'restore-default-settings'
+    }
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -96,6 +99,19 @@ function reducer(state: State, action: Action): State {
         grid: createFullScreenGrid({ cellSize: action.value, addGlider: true }),
         cellSize: action.value
       }
+
+    case 'restore-default-settings': {
+      return {
+        ...state,
+        generationDuration: initialState.generationDuration,
+        cellSize: initialState.cellSize,
+        screen: 'game',
+        grid: createFullScreenGrid({
+          cellSize: initialState.cellSize,
+          addGlider: true
+        })
+      }
+    }
   }
 }
 
