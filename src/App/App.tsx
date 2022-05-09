@@ -26,7 +26,7 @@ function AppContent() {
     toggleCellFill
   } = useGameOfLife()
 
-  const { color } = React.useContext(ColorContext)
+  const { color, setColor } = React.useContext(ColorContext)
 
   if (state.screen === 'settings') {
     return (
@@ -76,6 +76,7 @@ function AppContent() {
               className={'button button_large'}
               style={{ backgroundColor: color, borderColor: color }}
               onClick={() => {
+                setColor('#6b7502')
                 dispatch({ type: 'restore-default-settings' })
               }}>
               Restore defaults

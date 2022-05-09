@@ -1,7 +1,7 @@
 import React from 'react'
 
 const context = {
-  color: '',
+  color: '#6b7502',
   setColor: (value: string) => undefined
 }
 
