@@ -1,5 +1,6 @@
 import './App.css'
 
+import { ColorPicker } from './components/ColorPicker/ColorPicker'
 import { Grid } from './components/Grid/Grid'
 import { Navbar } from './components/Navbar/Navbar'
 import { Slider } from './components/Slider/Slider'
@@ -47,6 +48,10 @@ export function App() {
               min={5}
               max={50}
             />
+          </div>
+
+          <div className={'settings_item'}>
+            <ColorPicker />
           </div>
 
           <div className={'settings_item'}>
