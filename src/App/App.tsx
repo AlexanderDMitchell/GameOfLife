@@ -2,6 +2,7 @@ import './App.css'
 
 import React from 'react'
 
+import { Checkbox } from './components/Checkbox/Checkbox'
 import { ColorPicker } from './components/ColorPicker/ColorPicker'
 import { Grid } from './components/Grid/Grid'
 import { Navbar } from './components/Navbar/Navbar'
@@ -42,11 +43,43 @@ function AppContent() {
 
   const isDark = secondaryColor === '#000000'
 
+  React.useEffect(() => {
+    if (!state.wackyModeEnabled || !state.isPlaying) {
+      return
+    }
+
+    const interval = setInterval(() => {
+      const randomColor = Math.floor(Math.random() * 16777215).toString(16)
+      setColor(`#${randomColor}`)
+      if (Math.random() < 0.5) {
+        setSecondaryColor(Math.random() < 0.5 ? '#ffffff' : '#000000')
+      }
+    }, state.generationDuration)
+
+    return () => clearInterval(interval)
+  }, [
+    state.wackyModeEnabled,
+    setColor,
+    setSecondaryColor,
+    state.isPlaying,
+    state.generationDuration
+  ])
+
   if (state.screen === 'settings') {
     return (
       <div className={'App'} style={{ backgroundColor: secondaryColor }}>
         <div className={'App'} style={{ backgroundColor: `${color}33` }}>
           <Navbar>
+            <button
+              className={'button button_large'}
+              style={buttonStyle}
+              onClick={() => {
+                setColor('#6b7502')
+                setSecondaryColor('#000000')
+                dispatch({ type: 'restore-default-settings' })
+              }}>
+              Restore defaults
+            </button>
             <button
               className={'button'}
               style={buttonStyle}
@@ -104,16 +137,11 @@ function AppContent() {
             </div>
 
             <div className={'settings_item'}>
-              <button
-                className={'button button_large'}
-                style={buttonStyle}
-                onClick={() => {
-                  setColor('#6b7502')
-                  setSecondaryColor('#000000')
-                  dispatch({ type: 'restore-default-settings' })
-                }}>
-                Restore defaults
-              </button>
+              <Checkbox
+                label={'Wacky mode'}
+                checked={state.wackyModeEnabled}
+                onChange={() => dispatch({ type: 'toggle-wacky-mode' })}
+              />
             </div>
           </div>
         </div>
