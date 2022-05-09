@@ -26,6 +26,10 @@
   font-weight: bold;
 }
 
+.no_margin {
+  margin: 0;
+}
+
 .button_large {
   width: auto;
 }
