@@ -6,7 +6,7 @@ import { CellCoordinates, GridData } from './types'
 
 type Screen = 'game' | 'settings'
 
-export type State = {
+type State = {
   grid: GridData
   isPlaying: boolean
   generationHasPassed: boolean
@@ -15,7 +15,7 @@ export type State = {
   cellSize: number
 }
 
-export type Action =
+type Action =
   | {
       type: 'toggle-is-playing'
     }
@@ -115,7 +115,7 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-export const initialState: State = {
+const initialState: State = {
   grid: [],
   isPlaying: false,
   generationHasPassed: false,
