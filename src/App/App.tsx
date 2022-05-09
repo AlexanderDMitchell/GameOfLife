@@ -30,7 +30,7 @@ function AppContent() {
 
   if (state.screen === 'settings') {
     return (
-      <div className={'App'} style={{ backgroundColor: `${color}1a` }}>
+      <div className={'App'} style={{ backgroundColor: `${color}33` }}>
         <Navbar>
           <button
             className={'button'}
@@ -88,7 +88,7 @@ function AppContent() {
   }
 
   return (
-    <div className={'App'} style={{ backgroundColor: `${color}1a` }}>
+    <div className={'App'} style={{ backgroundColor: `${color}33` }}>
       <Navbar>
         <a
           className={'navbar_link'}

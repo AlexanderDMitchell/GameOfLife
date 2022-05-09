@@ -23,7 +23,7 @@ export const Cell = ({ isFilled, toggleFill, size }: Props) => {
         width: size,
         height: size,
         backgroundColor: isFilled ? color : 'transparent',
-        borderColor: color //TODO:
+        borderColor: `${color}1a`
       }}
     />
   )

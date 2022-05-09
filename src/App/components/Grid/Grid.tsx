@@ -13,11 +13,11 @@ interface Props {
 }
 
 export const Grid = ({ grid, toggleCellFill, cellSize }: Props) => {
-  const { color: borderColor } = React.useContext(ColorContext)
+  const { color } = React.useContext(ColorContext)
 
   return (
     <div className={'grid_container'}>
-      <div className={'grid'} style={{ borderColor }}>
+      <div className={'grid'} style={{ borderColor: `${color}33` }}>
         {grid.map((row, rowIndex) => (
           <div key={`row-${rowIndex}`} className={'grid_row'}>
             {row.map((cell, columnIndex) => (

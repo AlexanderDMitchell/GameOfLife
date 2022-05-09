@@ -11,7 +11,7 @@ export const ColorPicker = () => {
 
   const setColorDebounced = useDebouncedCallback((newValue: string) => {
     setColor(newValue)
-  }, 250)
+  }, 16)
 
   return (
     <HexColorPicker
