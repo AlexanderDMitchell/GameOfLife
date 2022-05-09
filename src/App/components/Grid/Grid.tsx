@@ -1,5 +1,8 @@
 import './Grid.css'
 
+import React from 'react'
+
+import { ColorContext } from '../../context/ColorProvider'
 import { CellCoordinates, GridData } from '../../types'
 import { Cell } from '../Cell/Cell'
 
@@ -10,9 +13,11 @@ interface Props {
 }
 
 export const Grid = ({ grid, toggleCellFill, cellSize }: Props) => {
+  const { color: borderColor } = React.useContext(ColorContext)
+
   return (
     <div className={'grid_container'}>
-      <div className={'grid'}>
+      <div className={'grid'} style={{ borderColor }}>
         {grid.map((row, rowIndex) => (
           <div key={`row-${rowIndex}`} className={'grid_row'}>
             {row.map((cell, columnIndex) => (

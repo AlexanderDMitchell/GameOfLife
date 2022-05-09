@@ -1,12 +1,23 @@
 import './App.css'
 
+import React from 'react'
+
 import { ColorPicker } from './components/ColorPicker/ColorPicker'
 import { Grid } from './components/Grid/Grid'
 import { Navbar } from './components/Navbar/Navbar'
 import { Slider } from './components/Slider/Slider'
+import { ColorContext, ColorProvider } from './context/ColorProvider'
 import { useGameOfLife } from './useGameOfLife'
 
 export function App() {
+  return (
+    <ColorProvider>
+      <AppContent />
+    </ColorProvider>
+  )
+}
+
+function AppContent() {
   const {
     state,
     dispatch,
@@ -15,12 +26,15 @@ export function App() {
     toggleCellFill
   } = useGameOfLife()
 
+  const { color } = React.useContext(ColorContext)
+
   if (state.screen === 'settings') {
     return (
-      <div className={'App'}>
+      <div className={'App'} style={{ backgroundColor: `${color}1a` }}>
         <Navbar>
           <button
             className={'button'}
+            style={{ backgroundColor: color, borderColor: color }}
             onClick={() => dispatch({ type: 'navigate', screen: 'game' })}>
             Back
           </button>
@@ -31,7 +45,10 @@ export function App() {
               label={'Speed'}
               value={-state.generationDuration}
               onChange={(value) => {
-                dispatch({ type: 'update-generation-duration', value: -value })
+                dispatch({
+                  type: 'update-generation-duration',
+                  value: -value
+                })
               }}
               min={-3200}
               max={-32}
@@ -57,6 +74,7 @@ export function App() {
           <div className={'settings_item'}>
             <button
               className={'button button_large'}
+              style={{ backgroundColor: color, borderColor: color }}
               onClick={() => {
                 dispatch({ type: 'restore-default-settings' })
               }}>
@@ -69,10 +87,11 @@ export function App() {
   }
 
   return (
-    <div className={'App'}>
+    <div className={'App'} style={{ backgroundColor: `${color}1a` }}>
       <Navbar>
         <a
           className={'navbar_link'}
+          style={{ color }}
           href={`https://en.wikipedia.org/wiki/Conway's_Game_of_Life`}
           target={'_blank'}
           rel={'noreferrer'}>
@@ -81,12 +100,18 @@ export function App() {
 
         <button
           className={`button ${state.isPlaying ? 'button_outline' : ''}`}
+          style={
+            state.isPlaying
+              ? { color, borderColor: color }
+              : { backgroundColor: color, borderColor: color }
+          }
           onClick={toggleIsPlaying}>
           {state.isPlaying ? 'Stop' : 'Start'}
         </button>
 
         <button
           className={'button'}
+          style={{ backgroundColor: color, borderColor: color }}
           onClick={() => {
             const grid = createFullScreenGrid({
               cellSize: state.cellSize,
@@ -99,6 +124,7 @@ export function App() {
 
         <button
           className={'button'}
+          style={{ backgroundColor: color, borderColor: color }}
           onClick={() => {
             const grid = createFullScreenGrid({ cellSize: state.cellSize })
             dispatch({ type: 'set-grid', grid, keepPlaying: false })
@@ -108,6 +134,7 @@ export function App() {
 
         <button
           className={'button settings_button'}
+          style={{ backgroundColor: color, borderColor: color }}
           onClick={() => dispatch({ type: 'navigate', screen: 'settings' })}>
           &#8942;
         </button>

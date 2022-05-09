@@ -3,6 +3,8 @@ import './Slider.css'
 import React from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 
+import { ColorContext } from '../../context/ColorProvider'
+
 interface Props {
   label: string
   value: number
@@ -24,11 +26,16 @@ export const Slider = ({
     onChange(newValue)
   }, 250)
 
+  const { color } = React.useContext(ColorContext)
+
   return (
     <div className={'slider_container'}>
-      <p className={'slider_label'}>{label}</p>
+      <p className={'slider_label'} style={{ color }}>
+        {label}
+      </p>
       <input
         className={'slider'}
+        style={{ background: color }}
         type={'range'}
         value={value}
         min={min}
