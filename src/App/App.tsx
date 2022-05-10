@@ -18,6 +18,53 @@ export function App() {
   )
 }
 
+const updateMetaThemeColor = (color: string) => {
+  const meta = document.querySelector("link[rel~='icon']")
+
+  if (!meta || !(meta instanceof HTMLMetaElement)) {
+    return
+  }
+
+  meta.content = color
+}
+
+const updateFavicon = (color: string) => {
+  let link = document.querySelector("link[rel~='icon']")
+  if (!link) {
+    link = document.createElement('link')
+    link.setAttribute('rel', 'icon')
+    document.head.appendChild(link)
+  }
+  if (!link || !(link instanceof HTMLLinkElement)) {
+    return
+  }
+
+  const faviconUrl = link.href
+
+  function onImageLoaded() {
+    if (!link || !(link instanceof HTMLLinkElement)) {
+      return
+    }
+    const canvas = document.createElement('canvas')
+    canvas.width = 16
+    canvas.height = 16
+    const context = canvas.getContext('2d')
+    if (!context) {
+      return
+    }
+    context.drawImage(img, 0, 0)
+    context.globalCompositeOperation = 'source-over'
+    context.fillStyle = color
+    context.fillRect(0, 0, 16, 16)
+    context.fill()
+    link.type = 'image/x-icon'
+    link.href = canvas.toDataURL()
+  }
+  const img = document.createElement('img')
+  img.addEventListener('load', onImageLoaded)
+  img.src = faviconUrl
+}
+
 function AppContent() {
   const {
     state,
@@ -42,6 +89,10 @@ function AppContent() {
   }
 
   const isDark = secondaryColor === '#000000'
+
+  React.useEffect(() => {
+    updateFavicon(color)
+  }, [color])
 
   if (state.screen === 'settings') {
     return (
