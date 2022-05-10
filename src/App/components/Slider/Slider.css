@@ -23,6 +23,8 @@
   width: 25px;
   height: 25px;
   background: #00000099;
+  border-radius: 0;
+  outline: 0;
   cursor: pointer;
 }
 
@@ -30,6 +32,8 @@
   width: 25px;
   height: 25px;
   background: #00000099;
+  border-radius: 0;
+  outline: 0;
   cursor: pointer;
 }
 
@@ -44,6 +48,8 @@
   width: 25px;
   height: 25px;
   background: #ffffff99;
+  border-radius: 0;
+  outline: 0;
   cursor: pointer;
 }
 
@@ -51,5 +57,7 @@
   width: 25px;
   height: 25px;
   background: #ffffff99;
+  border-radius: 0;
+  outline: 0;
   cursor: pointer;
 }
