@@ -26,7 +26,9 @@ export const Slider = ({
     onChange(newValue)
   }, 250)
 
-  const { color } = React.useContext(ColorContext)
+  const { color, secondaryColor } = React.useContext(ColorContext)
+
+  const isLightMode = secondaryColor === '#ffffff'
 
   return (
     <div className={'slider_container'}>
@@ -34,7 +36,7 @@ export const Slider = ({
         {label}
       </p>
       <input
-        className={'slider'}
+        className={`slider ${isLightMode ? 'slider_light' : ''}`}
         style={{ background: color }}
         type={'range'}
         value={value}

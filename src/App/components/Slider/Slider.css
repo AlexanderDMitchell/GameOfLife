@@ -37,3 +37,19 @@
   margin: 0;
   margin-bottom: 4px;
 }
+
+.slider_light::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #ffffff99;
+  cursor: pointer;
+}
+
+.slider_light::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #ffffff99;
+  cursor: pointer;
+}
