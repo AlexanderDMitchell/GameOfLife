@@ -13,7 +13,6 @@ type State = {
   screen: Screen
   generationDuration: number
   cellSize: number
-  wackyModeEnabled: boolean
 }
 
 type Action =
@@ -45,9 +44,6 @@ type Action =
       value: number
     }
   | {
-      type: 'toggle-wacky-mode'
-    }
-  | {
       type: 'restore-default-settings'
     }
 
@@ -75,14 +71,7 @@ function reducer(state: State, action: Action): State {
         ...state,
         grid: action.grid,
         generationHasPassed: false,
-        isPlaying: action.keepPlaying,
-        cellSize: state.wackyModeEnabled
-          ? state.cellSize + Math.random() * 5 * (Math.random() < 0.5 ? -1 : 1)
-          : state.cellSize,
-        generationDuration: state.wackyModeEnabled
-          ? state.generationDuration +
-            Math.random() * 50 * (Math.random() < 0.5 ? -1 : 1)
-          : state.generationDuration
+        isPlaying: action.keepPlaying
       }
 
     case 'generation-has-passed':
@@ -111,12 +100,6 @@ function reducer(state: State, action: Action): State {
         cellSize: action.value
       }
 
-    case 'toggle-wacky-mode':
-      return {
-        ...state,
-        wackyModeEnabled: !state.wackyModeEnabled
-      }
-
     case 'restore-default-settings': {
       return {
         ...state,
@@ -126,8 +109,7 @@ function reducer(state: State, action: Action): State {
         grid: createFullScreenGrid({
           cellSize: initialState.cellSize,
           addGlider: true
-        }),
-        wackyModeEnabled: false
+        })
       }
     }
   }
@@ -139,8 +121,7 @@ const initialState: State = {
   generationHasPassed: false,
   screen: 'game',
   generationDuration: 500,
-  cellSize: 20,
-  wackyModeEnabled: false
+  cellSize: 20
 }
 
 export const useGameOfLife = () => {
@@ -170,15 +151,9 @@ export const useGameOfLife = () => {
     if (!state.isPlaying || !state.generationHasPassed) {
       return
     }
-    const grid = play(state.grid, state.wackyModeEnabled)
+    const grid = play(state.grid)
     dispatch({ type: 'set-grid', grid, keepPlaying: true })
-  }, [
-    dispatch,
-    state.isPlaying,
-    state.grid,
-    state.generationHasPassed,
-    state.wackyModeEnabled
-  ])
+  }, [dispatch, state.isPlaying, state.grid, state.generationHasPassed])
 
   React.useEffect(() => {
     if (!state.isPlaying) {
@@ -211,7 +186,7 @@ const getCellValue = (grid: GridData, coordinates: CellCoordinates) => {
     : 0
 }
 
-const play = (gridData: GridData, wackyModeEnabled: boolean): GridData => {
+const play = (gridData: GridData): GridData => {
   const grid = cloneGrid(gridData)
   const updatedGrid = cloneGrid(gridData)
   if (!grid || !grid[0]) {
@@ -250,14 +225,6 @@ const play = (gridData: GridData, wackyModeEnabled: boolean): GridData => {
       // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
       if (!isLive && numberOfNeighbours === 3) {
         updatedGrid[row][col] = 1
-      }
-
-      // Spontaneous life
-      if (!isLive && wackyModeEnabled) {
-        const randomPercentage = Math.floor(Math.random() * 100)
-        if (randomPercentage > 98) {
-          updatedGrid[row][col] = 1
-        }
       }
     }
   }
