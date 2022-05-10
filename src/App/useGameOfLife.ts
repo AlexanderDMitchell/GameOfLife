@@ -13,6 +13,7 @@ type State = {
   screen: Screen
   generationDuration: number
   cellSize: number
+  showGrid: boolean
 }
 
 type Action =
@@ -42,6 +43,9 @@ type Action =
   | {
       type: 'update-cell-size'
       value: number
+    }
+  | {
+      type: 'toggle-grid'
     }
   | {
       type: 'restore-default-settings'
@@ -100,6 +104,12 @@ function reducer(state: State, action: Action): State {
         cellSize: action.value
       }
 
+    case 'toggle-grid':
+      return {
+        ...state,
+        showGrid: !state.showGrid
+      }
+
     case 'restore-default-settings': {
       return {
         ...state,
@@ -109,7 +119,8 @@ function reducer(state: State, action: Action): State {
         grid: createFullScreenGrid({
           cellSize: initialState.cellSize,
           addGlider: true
-        })
+        }),
+        showGrid: true
       }
     }
   }
@@ -121,7 +132,8 @@ const initialState: State = {
   generationHasPassed: false,
   screen: 'game',
   generationDuration: 500,
-  cellSize: 20
+  cellSize: 20,
+  showGrid: true
 }
 
 export const useGameOfLife = () => {

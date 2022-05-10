@@ -10,14 +10,16 @@ interface Props {
   grid: GridData
   toggleCellFill: (coordinate: CellCoordinates) => void
   cellSize: number
+  showGrid: boolean
 }
 
-export const Grid = ({ grid, toggleCellFill, cellSize }: Props) => {
+export const Grid = ({ grid, toggleCellFill, cellSize, showGrid }: Props) => {
   const { color } = React.useContext(ColorContext)
+  const borderColor = showGrid ? `${color}33` : 'transparent'
 
   return (
     <div className={'grid_container'}>
-      <div className={'grid'} style={{ borderColor: `${color}33` }}>
+      <div className={'grid'} style={{ borderColor }}>
         {grid.map((row, rowIndex) => (
           <div key={`row-${rowIndex}`} className={'grid_row'}>
             {row.map((cell, columnIndex) => (
@@ -26,6 +28,7 @@ export const Grid = ({ grid, toggleCellFill, cellSize }: Props) => {
                 isFilled={!!cell}
                 size={cellSize}
                 toggleFill={() => toggleCellFill([rowIndex, columnIndex])}
+                borderColor={borderColor}
               />
             ))}
           </div>

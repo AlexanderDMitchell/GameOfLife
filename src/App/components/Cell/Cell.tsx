@@ -8,9 +8,10 @@ interface Props {
   isFilled: boolean
   toggleFill: () => void
   size: number
+  borderColor: string
 }
 
-export const Cell = ({ isFilled, toggleFill, size }: Props) => {
+export const Cell = ({ isFilled, toggleFill, size, borderColor }: Props) => {
   const { color } = React.useContext(ColorContext)
 
   const className = `cell ${isFilled ? 'cell_filled' : ''}`
@@ -23,7 +24,7 @@ export const Cell = ({ isFilled, toggleFill, size }: Props) => {
         width: size,
         height: size,
         backgroundColor: isFilled ? color : 'transparent',
-        borderColor: `${color}1a`
+        borderColor
       }}
     />
   )

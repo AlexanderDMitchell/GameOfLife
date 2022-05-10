@@ -2,6 +2,7 @@ import './App.css'
 
 import React from 'react'
 
+import { Checkbox } from './components/Checkbox/Checkbox'
 import { ColorPicker } from './components/ColorPicker/ColorPicker'
 import { Grid } from './components/Grid/Grid'
 import { Navbar } from './components/Navbar/Navbar'
@@ -47,6 +48,16 @@ function AppContent() {
       <div className={'App'} style={{ backgroundColor: secondaryColor }}>
         <div className={'App'} style={{ backgroundColor: `${color}33` }}>
           <Navbar>
+            <button
+              className={'button button_large'}
+              style={buttonStyle}
+              onClick={() => {
+                setColor('#6b7502')
+                setSecondaryColor('#000000')
+                dispatch({ type: 'restore-default-settings' })
+              }}>
+              Restore defaults
+            </button>
             <button
               className={'button'}
               style={buttonStyle}
@@ -104,16 +115,11 @@ function AppContent() {
             </div>
 
             <div className={'settings_item'}>
-              <button
-                className={'button button_large'}
-                style={buttonStyle}
-                onClick={() => {
-                  setColor('#6b7502')
-                  setSecondaryColor('#000000')
-                  dispatch({ type: 'restore-default-settings' })
-                }}>
-                Restore defaults
-              </button>
+              <Checkbox
+                label={'Show grid'}
+                checked={state.showGrid}
+                onChange={() => dispatch({ type: 'toggle-grid' })}
+              />
             </div>
           </div>
         </div>
@@ -176,6 +182,7 @@ function AppContent() {
           grid={state.grid}
           toggleCellFill={toggleCellFill}
           cellSize={state.cellSize}
+          showGrid={state.showGrid}
         />
       </div>
     </div>
