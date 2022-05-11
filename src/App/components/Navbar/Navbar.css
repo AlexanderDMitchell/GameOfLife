@@ -99,6 +99,8 @@
 }
 
 @media (min-width: 768px) {
+  .side_drawer,
+  .backdrop,
   .side_drawer_button {
     display: none;
   }
