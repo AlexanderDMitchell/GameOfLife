@@ -54,22 +54,30 @@ function AppContent() {
       <div className={'App'} style={{ backgroundColor: secondaryColor }}>
         <div className={'App'} style={{ backgroundColor: `${color}33` }}>
           <Navbar>
-            <button
-              className={'button button_large'}
-              style={buttonStyle}
-              onClick={() => {
-                setColor('#6b7502')
-                setSecondaryColor('#000000')
-                dispatch({ type: 'restore-default-settings' })
-              }}>
-              Restore defaults
-            </button>
-            <button
-              className={'button'}
-              style={buttonStyle}
-              onClick={() => dispatch({ type: 'navigate', screen: 'game' })}>
-              Back
-            </button>
+            {(hideDrawer) => (
+              <>
+                <button
+                  className={'button button_large'}
+                  style={buttonStyle}
+                  onClick={() => {
+                    setColor('#6b7502')
+                    setSecondaryColor('#000000')
+                    dispatch({ type: 'restore-default-settings' })
+                    hideDrawer()
+                  }}>
+                  Restore defaults
+                </button>
+                <button
+                  className={'button'}
+                  style={buttonStyle}
+                  onClick={() => {
+                    dispatch({ type: 'navigate', screen: 'game' })
+                    hideDrawer()
+                  }}>
+                  Back
+                </button>
+              </>
+            )}
           </Navbar>
           <div className={'settings'}>
             <div className={'settings_item'}>
@@ -137,55 +145,69 @@ function AppContent() {
     <div className={'App'} style={{ backgroundColor: secondaryColor }}>
       <div className={'App'} style={{ backgroundColor: `${color}33` }}>
         <Navbar>
-          <a
-            className={'navbar_link'}
-            style={{ color }}
-            href={`https://en.wikipedia.org/wiki/Conway's_Game_of_Life`}
-            target={'_blank'}
-            rel={'noreferrer'}>
-            Info
-          </a>
+          {(hideDrawer) => (
+            <>
+              <a
+                className={'navbar_link'}
+                style={{ color }}
+                href={`https://en.wikipedia.org/wiki/Conway's_Game_of_Life`}
+                target={'_blank'}
+                rel={'noreferrer'}>
+                Info
+              </a>
 
-          <button
-            className={`button ${state.isPlaying ? 'button_outline' : ''}`}
-            style={state.isPlaying ? outlineButtonStyle : buttonStyle}
-            onClick={toggleIsPlaying}>
-            {state.isPlaying ? 'Stop' : 'Start'}
-          </button>
+              <button
+                className={`button ${state.isPlaying ? 'button_outline' : ''}`}
+                style={state.isPlaying ? outlineButtonStyle : buttonStyle}
+                onClick={() => {
+                  toggleIsPlaying()
+                  hideDrawer()
+                }}>
+                {state.isPlaying ? 'Stop' : 'Start'}
+              </button>
 
-          <button
-            className={'button'}
-            style={buttonStyle}
-            onClick={() => {
-              const grid = createFullScreenGrid({
-                cellSize: state.cellSize,
-                randomise: true
-              })
-              dispatch({ type: 'set-grid', grid, keepPlaying: false })
-            }}>
-            Randomise
-          </button>
+              <button
+                className={'button'}
+                style={buttonStyle}
+                onClick={() => {
+                  const grid = createFullScreenGrid({
+                    cellSize: state.cellSize,
+                    randomise: true
+                  })
+                  dispatch({ type: 'set-grid', grid, keepPlaying: false })
+                  hideDrawer()
+                }}>
+                Randomise
+              </button>
 
-          <button
-            className={'button'}
-            style={buttonStyle}
-            onClick={() => {
-              const grid = createFullScreenGrid({ cellSize: state.cellSize })
-              dispatch({ type: 'set-grid', grid, keepPlaying: false })
-            }}>
-            Clear
-          </button>
+              <button
+                className={'button'}
+                style={buttonStyle}
+                onClick={() => {
+                  const grid = createFullScreenGrid({
+                    cellSize: state.cellSize
+                  })
+                  dispatch({ type: 'set-grid', grid, keepPlaying: false })
+                  hideDrawer()
+                }}>
+                Clear
+              </button>
 
-          <button
-            className={'button settings_button'}
-            style={buttonStyle}
-            onClick={() => dispatch({ type: 'navigate', screen: 'settings' })}>
-            <div className={'settings_icon'}>
-              <div className={'settings_icon_block'} />
-              <div className={'settings_icon_block'} />
-              <div className={'settings_icon_block'} />
-            </div>
-          </button>
+              <button
+                className={'button settings_button'}
+                style={buttonStyle}
+                onClick={() => {
+                  dispatch({ type: 'navigate', screen: 'settings' })
+                  hideDrawer()
+                }}>
+                <div className={'settings_icon'}>
+                  <div className={'settings_icon_block'} />
+                  <div className={'settings_icon_block'} />
+                  <div className={'settings_icon_block'} />
+                </div>
+              </button>
+            </>
+          )}
         </Navbar>
 
         <Grid

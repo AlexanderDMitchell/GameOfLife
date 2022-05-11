@@ -5,7 +5,7 @@ import React from 'react'
 import { ColorContext } from '../../context/ColorProvider'
 
 interface Props {
-  children: React.ReactNode
+  children: (hideDrawer: () => void) => React.ReactNode
 }
 
 export const Navbar = ({ children }: Props) => {
@@ -13,6 +13,12 @@ export const Navbar = ({ children }: Props) => {
 
   const [showDrawer, setShowDrawer] = React.useState(false)
   const toggleDrawer = () => setShowDrawer((current) => !current)
+
+  const hideDrawer = () => {
+    if (showDrawer) {
+      setShowDrawer(false)
+    }
+  }
 
   const buttonStyle = {
     backgroundColor: color,
@@ -23,7 +29,7 @@ export const Navbar = ({ children }: Props) => {
   return (
     <div className={'navbar'}>
       <h1 style={{ color }}>Game of Life</h1>
-      <div className={'navbar_actions'}>{children}</div>
+      <div className={'navbar_actions'}>{children(hideDrawer)}</div>
       <button
         className={'button side_drawer_button'}
         style={buttonStyle}
@@ -53,7 +59,7 @@ export const Navbar = ({ children }: Props) => {
                 onClick={toggleDrawer}>
                 <div className={'cross'} />
               </button>
-              {children}
+              {children(hideDrawer)}
             </div>
           </div>
         </>
