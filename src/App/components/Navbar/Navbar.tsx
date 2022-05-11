@@ -46,7 +46,7 @@ export const Navbar = ({ children }: Props) => {
       </button>
       {showDrawer && (
         <>
-          <button className={'backdrop'} onClick={toggleDrawer} />
+          <div className={'backdrop'} onClick={toggleDrawer} />
           <div
             className={'side_drawer'}
             style={{ backgroundColor: secondaryColor }}>
