@@ -44,6 +44,17 @@
   align-items: flex-end;
 }
 
+.side_drawer_button {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#close {
+  margin-bottom: 32px;
+}
+
 .side_drawer button,
 .side_drawer a {
   margin: 0;
@@ -89,13 +100,6 @@
 
 .cross::after {
   transform: rotate(-45deg);
-}
-
-.side_drawer_button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: red;
 }
 
 @media (min-width: 768px) {

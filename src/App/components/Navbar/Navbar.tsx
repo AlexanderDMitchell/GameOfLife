@@ -47,6 +47,7 @@ export const Navbar = ({ children }: Props) => {
                 borderColor: `${color}1a`
               }}>
               <button
+                id={'close'}
                 className={'button side_drawer_button'}
                 style={buttonStyle}
                 onClick={toggleDrawer}>
