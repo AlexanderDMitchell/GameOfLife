@@ -9,7 +9,7 @@
 }
 
 .settings {
-  width: 500px;
+  width: 300px;
 }
 
 .settings_item {
@@ -75,6 +75,10 @@
 }
 
 @media (min-width: 768px) {
+  .settings {
+    width: 500px;
+  }
+
   .settings_button {
     width: 50px;
   }
