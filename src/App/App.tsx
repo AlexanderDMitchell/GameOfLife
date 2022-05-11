@@ -68,7 +68,7 @@ function AppContent() {
                   Restore defaults
                 </button>
                 <button
-                  className={'button'}
+                  className={'button button_large'}
                   style={buttonStyle}
                   onClick={() => {
                     dispatch({ type: 'navigate', screen: 'game' })
