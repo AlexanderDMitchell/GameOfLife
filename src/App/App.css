@@ -47,6 +47,31 @@
 }
 
 .settings_button {
-  width: 50px;
+  width: 100px;
   font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings_icon {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings_icon_block {
+  height: 3px;
+  width: 3px;
+  background-color: black;
+  margin: 2px;
+}
+
+@media (min-width: 768px) {
+  .settings_button {
+    width: 50px;
+  }
 }

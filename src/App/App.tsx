@@ -180,7 +180,11 @@ function AppContent() {
             className={'button settings_button'}
             style={buttonStyle}
             onClick={() => dispatch({ type: 'navigate', screen: 'settings' })}>
-            &#8942;
+            <div className={'settings_icon'}>
+              <div className={'settings_icon_block'} />
+              <div className={'settings_icon_block'} />
+              <div className={'settings_icon_block'} />
+            </div>
           </button>
         </Navbar>
 
