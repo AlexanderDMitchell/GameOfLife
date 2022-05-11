@@ -26,6 +26,10 @@ export const Navbar = ({ children }: Props) => {
     color: `${secondaryColor}cc`
   }
 
+  const isDark = secondaryColor === '#000000'
+
+  const burgerBarClass = `burger_bar ${isDark ? '' : 'burger_bar_light'}`
+
   return (
     <div className={'navbar'}>
       <h1 style={{ color }}>Game of Life</h1>
@@ -35,9 +39,9 @@ export const Navbar = ({ children }: Props) => {
         style={buttonStyle}
         onClick={toggleDrawer}>
         <div className={'burger'}>
-          <div className={'burger_bar'} />
-          <div className={'burger_bar'} />
-          <div className={'burger_bar'} />
+          <div className={burgerBarClass} />
+          <div className={burgerBarClass} />
+          <div className={burgerBarClass} />
         </div>
       </button>
       {showDrawer && (
@@ -57,7 +61,7 @@ export const Navbar = ({ children }: Props) => {
                 className={'button side_drawer_button'}
                 style={buttonStyle}
                 onClick={toggleDrawer}>
-                <div className={'cross'} />
+                <div className={`${isDark ? 'cross' : 'cross_light'}`} />
               </button>
               {children(hideDrawer)}
             </div>

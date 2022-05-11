@@ -66,8 +66,12 @@
 .settings_icon_block {
   height: 3px;
   width: 3px;
-  background-color: black;
+  background-color: #000000cc;
   margin: 2px;
+}
+
+.settings_icon_block_light {
+  background-color: #ffffffcc;
 }
 
 @media (min-width: 768px) {

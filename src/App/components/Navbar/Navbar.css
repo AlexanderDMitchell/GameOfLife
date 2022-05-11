@@ -76,7 +76,14 @@
   background-color: #000000cc;
 }
 
-.cross {
+.burger_bar_light {
+  width: 100%;
+  height: 2px;
+  background-color: #ffffffcc;
+}
+
+.cross,
+.cross_light {
   position: relative;
   height: 24px;
   width: 24px;
@@ -91,14 +98,25 @@
   content: '';
   width: 100%;
   height: 2px;
-  background-color: black;
+  background-color: #000000cc;
 }
 
-.cross::before {
+.cross_light::before,
+.cross_light::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 2px;
+  background-color: #ffffffcc;
+}
+
+.cross::before,
+.cross_light::before {
   transform: rotate(45deg);
 }
 
-.cross::after {
+.cross::after,
+.cross_light::after {
   transform: rotate(-45deg);
 }
 

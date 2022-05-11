@@ -48,6 +48,9 @@ function AppContent() {
   }
 
   const isDark = secondaryColor === '#000000'
+  const settingsIconBlockClass = `settings_icon_block ${
+    isDark ? '' : 'settings_icon_block_light'
+  }`
 
   if (state.screen === 'settings') {
     return (
@@ -201,9 +204,9 @@ function AppContent() {
                   hideDrawer()
                 }}>
                 <div className={'settings_icon'}>
-                  <div className={'settings_icon_block'} />
-                  <div className={'settings_icon_block'} />
-                  <div className={'settings_icon_block'} />
+                  <div className={settingsIconBlockClass} />
+                  <div className={settingsIconBlockClass} />
+                  <div className={settingsIconBlockClass} />
                 </div>
               </button>
             </>
