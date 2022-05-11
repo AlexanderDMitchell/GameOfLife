@@ -5,6 +5,7 @@ import React from 'react'
 import { Checkbox } from './components/Checkbox/Checkbox'
 import { ColorPicker } from './components/ColorPicker/ColorPicker'
 import { Grid } from './components/Grid/Grid'
+import { VerticalEllipsisIcon } from './components/Icons/Icons'
 import { Navbar } from './components/Navbar/Navbar'
 import { Slider } from './components/Slider/Slider'
 import { ColorContext, ColorProvider } from './context/ColorProvider'
@@ -48,9 +49,6 @@ function AppContent() {
   }
 
   const isDark = secondaryColor === '#000000'
-  const settingsIconBlockClass = `settings_icon_block ${
-    isDark ? '' : 'settings_icon_block_light'
-  }`
 
   if (state.screen === 'settings') {
     return (
@@ -203,11 +201,7 @@ function AppContent() {
                   dispatch({ type: 'navigate', screen: 'settings' })
                   hideDrawer()
                 }}>
-                <div className={'settings_icon'}>
-                  <div className={settingsIconBlockClass} />
-                  <div className={settingsIconBlockClass} />
-                  <div className={settingsIconBlockClass} />
-                </div>
+                <VerticalEllipsisIcon />
               </button>
             </>
           )}

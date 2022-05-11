@@ -1,0 +1,81 @@
+.burger {
+  width: 18px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.burger_bar {
+  width: 100%;
+  height: 2px;
+  background-color: #000000cc;
+}
+
+.burger_bar_light {
+  width: 100%;
+  height: 2px;
+  background-color: #ffffffcc;
+}
+
+/* ========================= */
+
+.cross,
+.cross_light {
+  position: relative;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cross::before,
+.cross::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 2px;
+  background-color: #000000cc;
+}
+
+.cross_light::before,
+.cross_light::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 2px;
+  background-color: #ffffffcc;
+}
+
+.cross::before,
+.cross_light::before {
+  transform: rotate(45deg);
+}
+
+.cross::after,
+.cross_light::after {
+  transform: rotate(-45deg);
+}
+
+/* ========================= */
+
+.settings_icon {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings_icon_block {
+  height: 3px;
+  width: 3px;
+  background-color: #000000cc;
+  margin: 2px;
+}
+
+.settings_icon_block_light {
+  background-color: #ffffffcc;
+}
