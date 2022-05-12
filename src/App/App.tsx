@@ -91,7 +91,7 @@ function AppContent() {
                     value: -value
                   })
                 }}
-                min={-3200}
+                min={-2000}
                 max={-32}
               />
             </div>
