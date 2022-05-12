@@ -22,7 +22,7 @@
   appearance: none;
   width: 25px;
   height: 25px;
-  background: #00000099;
+  background: #00000099; /* 60% opacity */
   border-radius: 0;
   outline: 0;
   cursor: pointer;
@@ -31,7 +31,7 @@
 .slider::-moz-range-thumb {
   width: 25px;
   height: 25px;
-  background: #00000099;
+  background: #00000099; /* 60% opacity */
   border-radius: 0;
   outline: 0;
   cursor: pointer;
@@ -47,7 +47,7 @@
   appearance: none;
   width: 25px;
   height: 25px;
-  background: #ffffff99;
+  background: #ffffff99; /* 60% opacity */
   border-radius: 0;
   outline: 0;
   cursor: pointer;
@@ -56,7 +56,7 @@
 .slider_light::-moz-range-thumb {
   width: 25px;
   height: 25px;
-  background: #ffffff99;
+  background: #ffffff99; /* 60% opacity */
   border-radius: 0;
   outline: 0;
   cursor: pointer;

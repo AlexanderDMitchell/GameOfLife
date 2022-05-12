@@ -2,7 +2,7 @@ import './Navbar.css'
 
 import React from 'react'
 
-import { ColorContext } from '../../context/ColorProvider'
+import { ColorContext, HexOpacity } from '../../context/ColorProvider'
 import { BurgerIcon, CloseIcon } from '../Icons/Icons'
 
 interface Props {
@@ -24,7 +24,7 @@ export const Navbar = ({ children }: Props) => {
   const buttonStyle = {
     backgroundColor: color,
     borderColor: color,
-    color: `${secondaryColor}cc`
+    color: `${secondaryColor}${HexOpacity['80']}`
   }
 
   return (
@@ -46,8 +46,8 @@ export const Navbar = ({ children }: Props) => {
             <div
               className={'side_drawer_content'}
               style={{
-                backgroundColor: `${color}33`,
-                borderColor: `${color}1a`
+                backgroundColor: `${color}${HexOpacity['20']}`,
+                borderColor: `${color}${HexOpacity['10']}`
               }}>
               <button
                 id={'close'}

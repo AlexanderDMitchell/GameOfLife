@@ -2,7 +2,7 @@ import './Grid.css'
 
 import React from 'react'
 
-import { ColorContext } from '../../context/ColorProvider'
+import { ColorContext, HexOpacity } from '../../context/ColorProvider'
 import { CellCoordinates, GridData } from '../../types'
 import { Cell } from '../Cell/Cell'
 
@@ -15,7 +15,7 @@ interface Props {
 
 export const Grid = ({ grid, toggleCellFill, cellSize, showGrid }: Props) => {
   const { color } = React.useContext(ColorContext)
-  const borderColor = showGrid ? `${color}33` : 'transparent'
+  const borderColor = showGrid ? `${color}${HexOpacity['20']}` : 'transparent'
 
   return (
     <div className={'grid_container'}>

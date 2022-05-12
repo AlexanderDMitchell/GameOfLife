@@ -39,3 +39,10 @@ export const ColorProvider = ({ children }: { children: React.ReactNode }) => {
     </ColorContext.Provider>
   )
 }
+
+// percentageOpacity: hexString
+export const HexOpacity = {
+  '10': '1a',
+  '20': '33',
+  '80': 'cc'
+}

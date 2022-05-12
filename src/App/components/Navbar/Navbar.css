@@ -21,7 +21,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #000000cc;
+  background-color: #000000cc; /* 80% opacity */
   z-index: 9999;
 }
 
@@ -41,7 +41,7 @@
   padding-left: 24px;
   display: flex;
   flex-direction: column;
-  border-left: 2px solid #6b75021a;
+  border-left: 2px solid #6b75021a; /* 10% opacity */
   align-items: flex-end;
 }
 

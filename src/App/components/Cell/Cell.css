@@ -1,11 +1,11 @@
 .cell {
   width: 20px;
   height: 20px;
-  border: 1px solid #6b75021a;
+  border: 1px solid #6b75021a; /* 10% opacity */
   border-bottom: 0;
   border-right: 0;
 }
-
+/*  */
 .cell_filled {
   background-color: #6b7502;
 }

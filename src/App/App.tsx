@@ -8,7 +8,11 @@ import { Grid } from './components/Grid/Grid'
 import { VerticalEllipsisIcon } from './components/Icons/Icons'
 import { Navbar } from './components/Navbar/Navbar'
 import { Slider } from './components/Slider/Slider'
-import { ColorContext, ColorProvider } from './context/ColorProvider'
+import {
+  ColorContext,
+  ColorProvider,
+  HexOpacity
+} from './context/ColorProvider'
 import { useGameOfLife } from './useGameOfLife'
 import { updateFavicon, updateMetaThemeColor } from './utils'
 
@@ -40,7 +44,7 @@ function AppContent() {
   const buttonStyle = {
     backgroundColor: color,
     borderColor: color,
-    color: `${secondaryColor}cc`
+    color: `${secondaryColor}${HexOpacity['80']}`
   }
 
   const outlineButtonStyle = {
@@ -53,7 +57,9 @@ function AppContent() {
   if (state.screen === 'settings') {
     return (
       <div className={'App'} style={{ backgroundColor: secondaryColor }}>
-        <div className={'App'} style={{ backgroundColor: `${color}33` }}>
+        <div
+          className={'App'}
+          style={{ backgroundColor: `${color}${HexOpacity['20']}` }}>
           <Navbar>
             {(hideDrawer) => (
               <>
@@ -144,7 +150,9 @@ function AppContent() {
 
   return (
     <div className={'App'} style={{ backgroundColor: secondaryColor }}>
-      <div className={'App'} style={{ backgroundColor: `${color}33` }}>
+      <div
+        className={'App'}
+        style={{ backgroundColor: `${color}${HexOpacity['20']}` }}>
         <Navbar>
           {(hideDrawer) => (
             <>
