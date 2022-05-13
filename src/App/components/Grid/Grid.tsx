@@ -8,7 +8,7 @@ import { Cell } from '../Cell/Cell'
 
 interface Props {
   grid: GridData
-  toggleCellFill: (coordinate: CellCoordinates) => void
+  toggleCellFill?: (coordinate: CellCoordinates) => void
   cellSize: number
   showGrid: boolean
 }
@@ -18,22 +18,25 @@ export const Grid = ({ grid, toggleCellFill, cellSize, showGrid }: Props) => {
   const borderColor = showGrid ? `${color}${HexOpacity['20']}` : 'transparent'
 
   return (
-    <div className={'grid_container'}>
-      <div className={'grid'} style={{ borderColor }}>
-        {grid.map((row, rowIndex) => (
-          <div key={`row-${rowIndex}`} className={'grid_row'}>
-            {row.map((cell, columnIndex) => (
-              <Cell
-                key={`cell-${columnIndex}`}
-                isFilled={!!cell}
-                size={cellSize}
-                toggleFill={() => toggleCellFill([rowIndex, columnIndex])}
-                borderColor={borderColor}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
+    <div className={'grid'} style={{ borderColor }}>
+      {grid.map((row, rowIndex) => (
+        <div key={`row-${rowIndex}`} className={'grid_row'}>
+          {row.map((cell, columnIndex) => (
+            <Cell
+              key={`cell-${columnIndex}`}
+              isFilled={!!cell}
+              size={cellSize}
+              toggleFill={() => {
+                if (!toggleCellFill) {
+                  return
+                }
+                toggleCellFill([rowIndex, columnIndex])
+              }}
+              borderColor={borderColor}
+            />
+          ))}
+        </div>
+      ))}
     </div>
   )
 }

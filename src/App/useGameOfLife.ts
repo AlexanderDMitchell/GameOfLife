@@ -14,6 +14,7 @@ type State = {
   generationDuration: number
   cellSize: number
   showGrid: boolean
+  showSpinner: boolean
 }
 
 type Action =
@@ -46,6 +47,9 @@ type Action =
     }
   | {
       type: 'toggle-grid'
+    }
+  | {
+      type: 'toggle-spinner'
     }
   | {
       type: 'restore-default-settings'
@@ -110,6 +114,12 @@ function reducer(state: State, action: Action): State {
         showGrid: !state.showGrid
       }
 
+    case 'toggle-spinner':
+      return {
+        ...state,
+        showSpinner: !state.showSpinner
+      }
+
     case 'restore-default-settings': {
       return {
         ...state,
@@ -133,7 +143,8 @@ const initialState: State = {
   screen: 'game',
   generationDuration: 500,
   cellSize: 20,
-  showGrid: true
+  showGrid: true,
+  showSpinner: true
 }
 
 export const useGameOfLife = () => {
@@ -147,6 +158,18 @@ export const useGameOfLife = () => {
     }
     dispatch({ type: 'toggle-cell', coordinates })
   }
+
+  React.useEffect(() => {
+    if (!state.showSpinner) {
+      return
+    }
+
+    const timeout = setTimeout(() => {
+      dispatch({ type: 'toggle-spinner' })
+    }, 3400)
+
+    return () => clearTimeout(timeout)
+  })
 
   React.useEffect(() => {
     if (state.grid.length) {

@@ -6,7 +6,7 @@ import { ColorContext } from '../../context/ColorProvider'
 
 interface Props {
   isFilled: boolean
-  toggleFill: () => void
+  toggleFill?: () => void
   size: number
   borderColor: string
 }

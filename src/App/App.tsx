@@ -8,6 +8,7 @@ import { Grid } from './components/Grid/Grid'
 import { VerticalEllipsisIcon } from './components/Icons/Icons'
 import { Navbar } from './components/Navbar/Navbar'
 import { Slider } from './components/Slider/Slider'
+import { Spinner } from './components/Spinner/Spinner'
 import {
   ColorContext,
   ColorProvider,
@@ -53,6 +54,26 @@ function AppContent() {
   }
 
   const isDark = secondaryColor === '#000000'
+
+  if (state.showSpinner) {
+    return (
+      <div className={'App'} style={{ backgroundColor: secondaryColor }}>
+        <div
+          className={'App'}
+          style={{
+            backgroundColor: `${color}${HexOpacity['20']}`,
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+          <Spinner />
+          <p style={{ marginTop: '32px' }}>loading...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (state.screen === 'settings') {
     return (
@@ -214,13 +235,14 @@ function AppContent() {
             </>
           )}
         </Navbar>
-
-        <Grid
-          grid={state.grid}
-          toggleCellFill={toggleCellFill}
-          cellSize={state.cellSize}
-          showGrid={state.showGrid}
-        />
+        <div className={'grid_container'}>
+          <Grid
+            grid={state.grid}
+            toggleCellFill={toggleCellFill}
+            cellSize={state.cellSize}
+            showGrid={state.showGrid}
+          />
+        </div>
       </div>
     </div>
   )
