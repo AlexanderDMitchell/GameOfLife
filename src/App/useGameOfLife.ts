@@ -149,8 +149,12 @@ const initialState: State = {
 
 export const useGameOfLife = () => {
   const [state, dispatch] = React.useReducer(reducer, initialState)
+  const isPlayingRef = React.useRef(state.isPlaying)
 
-  const toggleIsPlaying = () => dispatch({ type: 'toggle-is-playing' })
+  const toggleIsPlaying = () => {
+    isPlayingRef.current = !isPlayingRef.current
+    dispatch({ type: 'toggle-is-playing' })
+  }
 
   const toggleCellFill = (coordinates: CellCoordinates) => {
     if (state.isPlaying) {
@@ -183,7 +187,11 @@ export const useGameOfLife = () => {
   })
 
   React.useEffect(() => {
-    if (!state.isPlaying || !state.generationHasPassed) {
+    if (
+      !state.isPlaying ||
+      !isPlayingRef.current ||
+      !state.generationHasPassed
+    ) {
       return
     }
     const grid = play(state.grid)
@@ -196,11 +204,19 @@ export const useGameOfLife = () => {
     }
 
     const interval = setInterval(() => {
+      if (!isPlayingRef.current) {
+        return
+      }
       dispatch({ type: 'generation-has-passed' })
     }, state.generationDuration)
 
     return () => clearInterval(interval)
   }, [state.isPlaying, dispatch, state.generationDuration])
+
+  React.useEffect(() => {
+    // Sync ref with state
+    isPlayingRef.current = state.isPlaying
+  }, [state.isPlaying])
 
   return {
     state,
