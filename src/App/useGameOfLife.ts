@@ -218,12 +218,23 @@ export const useGameOfLife = () => {
     isPlayingRef.current = state.isPlaying
   }, [state.isPlaying])
 
+  const reset = (randomise: boolean) => {
+    isPlayingRef.current = false
+
+    const grid = createFullScreenGrid({
+      cellSize: state.cellSize,
+      randomise
+    })
+
+    dispatch({ type: 'set-grid', grid, keepPlaying: false })
+  }
+
   return {
     state,
     dispatch,
     toggleIsPlaying,
-    createFullScreenGrid,
-    toggleCellFill
+    toggleCellFill,
+    reset
   }
 }
 

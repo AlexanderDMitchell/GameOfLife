@@ -26,13 +26,8 @@ export function App() {
 }
 
 function AppContent() {
-  const {
-    state,
-    dispatch,
-    toggleIsPlaying,
-    createFullScreenGrid,
-    toggleCellFill
-  } = useGameOfLife()
+  const { state, dispatch, toggleIsPlaying, toggleCellFill, reset } =
+    useGameOfLife()
 
   const { color, setColor, secondaryColor, setSecondaryColor } =
     React.useContext(ColorContext)
@@ -200,11 +195,7 @@ function AppContent() {
                 className={'button'}
                 style={buttonStyle}
                 onClick={() => {
-                  const grid = createFullScreenGrid({
-                    cellSize: state.cellSize,
-                    randomise: true
-                  })
-                  dispatch({ type: 'set-grid', grid, keepPlaying: false })
+                  reset(true)
                   hideDrawer()
                 }}>
                 Randomise
@@ -214,10 +205,7 @@ function AppContent() {
                 className={'button'}
                 style={buttonStyle}
                 onClick={() => {
-                  const grid = createFullScreenGrid({
-                    cellSize: state.cellSize
-                  })
-                  dispatch({ type: 'set-grid', grid, keepPlaying: false })
+                  reset(false)
                   hideDrawer()
                 }}>
                 Clear
