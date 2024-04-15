@@ -269,12 +269,16 @@ const play = (gridData: GridData): GridData => {
 
 const createGrid = (rows: number, columns: number, randomise = false) => {
   const grid: GridData = []
+  const minProbability = 0.1
+  const maxProbability = 0.9
+  const probability =
+    Math.random() * (maxProbability - minProbability) + minProbability
 
   for (let row = 0; row < rows; row++) {
     grid.push([])
 
     for (let col = 0; col < columns; col++) {
-      const value = randomise ? (Math.round(Math.random()) as 0 | 1) : 0
+      const value = randomise ? (Math.random() < probability ? 1 : 0) : 0
       grid[row].push(value)
     }
   }
