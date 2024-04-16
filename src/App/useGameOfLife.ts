@@ -248,6 +248,26 @@ const getCellValue = (grid: GridData, coordinates: CellCoordinates) => {
     : 0
 }
 
+const getNumberOfNeighbours = (
+  grid: GridData,
+  [centerRow, centerCol]: CellCoordinates,
+  range = 1
+) => {
+  let count = 0
+
+  for (let row = centerRow - range; row <= centerRow + range; row++) {
+    for (let col = centerCol - range; col <= centerCol + range; col++) {
+      // Skip the center cell to not count it as a neighbor
+      if (row === centerRow && col === centerCol) {
+        continue
+      }
+      count += getCellValue(grid, [row, col])
+    }
+  }
+
+  return count
+}
+
 const play = (gridData: GridData): GridData => {
   const grid = cloneGrid(gridData)
   const updatedGrid = cloneGrid(gridData)
@@ -262,15 +282,7 @@ const play = (gridData: GridData): GridData => {
     for (let col = 0; col < columns; col++) {
       const isLive = getCellValue(grid, [row, col])
 
-      const numberOfNeighbours =
-        getCellValue(grid, [row - 1, col - 1]) +
-        getCellValue(grid, [row - 1, col]) +
-        getCellValue(grid, [row - 1, col + 1]) +
-        getCellValue(grid, [row, col - 1]) +
-        getCellValue(grid, [row, col + 1]) +
-        getCellValue(grid, [row + 1, col - 1]) +
-        getCellValue(grid, [row + 1, col]) +
-        getCellValue(grid, [row + 1, col + 1])
+      const numberOfNeighbours = getNumberOfNeighbours(grid, [row, col])
 
       // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
       if (isLive && numberOfNeighbours < 2) {
@@ -278,6 +290,7 @@ const play = (gridData: GridData): GridData => {
       }
 
       // Any live cell with two or three live neighbours lives on to the next generation.
+      // NO OP
 
       // Any live cell with more than three live neighbours dies, as if by overpopulation.
       if (isLive && numberOfNeighbours > 3) {
